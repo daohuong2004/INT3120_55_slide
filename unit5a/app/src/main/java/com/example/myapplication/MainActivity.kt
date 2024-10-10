@@ -57,7 +57,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+//LocalConfiguration.current: Lấy thông tin cấu hình hiện tại của thiết bị (bao gồm định hướng màn hình).
+//orientation: Lưu trữ định hướng màn hình (dọc hoặc ngang).
+//Cấu trúc if: Kiểm tra định hướng màn hình. Nếu là Landscape, gọi LandscapeScreen(), ngược lại gọi PortraitScreen().
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
