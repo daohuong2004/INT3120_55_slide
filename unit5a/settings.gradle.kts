@@ -19,8 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "unit3"
-include(":app")
-include(":app")
+rootProject.name = "My Application"
 include(":app")
  
