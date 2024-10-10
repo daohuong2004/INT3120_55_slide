@@ -49,14 +49,16 @@ package com.example.huongmanhinh
 // không được cấu hình trực tiếp qua XML
 
 // như trong các ứng dụng sử dụng View system.
-// Thay vào đó, trong Compose, bạn sẽ sử dụng
-// các API và phương pháp xử lý trạng thái của định hướng màn hình
-// thông qua code Kotlin.
-//ó thể sử dụng LocalConfiguration
-// để lấy thông tin về cấu hình của thiết bị, bao gồm cả định hướng màn hình.
+//Dưới đây là một ví dụ đầy đủ với Jetpack Compose
+// để xử lý định hướng màn hình và thay đổi giao diện
+// dựa trên chế độ Portrait và Landscape.
+
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.* // Thư viện cho Layouts
+import androidx.compose.material3.* // Thư viện Material Design 3
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,37 +66,74 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyApp()
+        }
+    }
+}
+
 @Composable
-fun ScreenOrientationSample() {
-    // Lấy thông tin cấu hình của thiết bị
+fun MyApp() {
+    // Lấy cấu hình thiết bị hiện tại (bao gồm orientation)
     val configuration = LocalConfiguration.current
 
-    // Kiểm tra định hướng màn hình
-    val orientation = when (configuration.orientation) {
-        Configuration.ORIENTATION_LANDSCAPE -> "Landscape"
-        Configuration.ORIENTATION_PORTRAIT -> "Portrait"
-        else -> "Undefined"
-    }
+    // Kiểm tra orientation của màn hình
+    val orientation = configuration.orientation
 
+    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        // UI cho Landscape (màn hình ngang)
+        LandscapeContent()
+    } else {
+        // UI cho Portrait (màn hình dọc)
+        PortraitContent()
+    }
+}
+
+@Composable
+fun PortraitContent() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Hiển thị thông báo về định hướng màn hình hiện tại
-        Text(text = "Current Orientation: $orientation")
+        Text(text = "Portrait Mode", style = MaterialTheme.typography.headlineMedium)
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = { /* TODO: Thêm hành động cho button */ }) {
+            Text(text = "Click me in Portrait")
+        }
+    }
+}
 
-        // Nội dung khác thay đổi theo định hướng
-        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Text("Landscape content")
-        } else {
-            Text("Portrait content")
+@Composable
+fun LandscapeContent() {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = "Landscape Mode", style = MaterialTheme.typography.headlineMedium)
+        Spacer(modifier = Modifier.width(16.dp))
+        Button(onClick = { /* TODO: Thêm hành động cho button */ }) {
+            Text(text = "Click me in Landscape")
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewScreenOrientationSample() {
-    ScreenOrientationSample()
+fun PreviewPortraitContent() {
+    PortraitContent()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewLandscapeContent() {
+    LandscapeContent()
 }
