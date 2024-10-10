@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "huongmanhinh"
+rootProject.name = "sử dụng spacer() và divider()"
 include(":app")
+ 

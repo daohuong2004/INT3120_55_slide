@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.huongmanhinh"
+    namespace = "com.example.sdngspacervdivider"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.huongmanhinh"
+        applicationId = "com.example.sdngspacervdivider"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
